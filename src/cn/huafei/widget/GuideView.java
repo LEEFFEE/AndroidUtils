@@ -34,6 +34,15 @@ public class GuideView extends FrameLayout {
 	private ArrayList<Bitmap> images;// 页信息容器
 	private int normalPointsBGId;// 正常圆点状态的背景
 	private int curPointBGId;// 滚动圆点的背景
+	private float leftMargin = 10; // 除了第一个小圆点外 其他圆点的leftMargin
+
+	/**
+	 * 除了第一个小圆点外 其他圆点的leftMargin
+	 * @param leftMargin   像数自动转为密度
+	 */
+	public void setLeftMargin(float leftMargin) {
+		this.leftMargin = leftMargin;
+	}
 
 	public void setNormalPointsBGId(int normalPointsBGId) {
 		this.normalPointsBGId = normalPointsBGId;
@@ -76,6 +85,7 @@ public class GuideView extends FrameLayout {
 		btnStart = (Button) mGuideView.findViewById(R.id.btn_guide_start);
 	}
 
+	@SuppressWarnings("deprecation")
 	private void initAdpater() {
 		mViewPager.setAdapter(new GuidPagerAdapter());
 		mCurPoint.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
@@ -85,7 +95,9 @@ public class GuideView extends FrameLayout {
 				mCurPoint.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 				// iv_guide_redpoint.getViewTreeObserver().removeOnGlobalLayoutListener(this);//API
 				// level 16以上
-				disPoint = mLLayout.getChildAt(1).getLeft() - mLLayout.getChildAt(0).getLeft();
+				if (mLLayout.getChildCount() > 1) {
+					disPoint = mLLayout.getChildAt(1).getLeft() - mLLayout.getChildAt(0).getLeft();
+				}
 			}
 		});
 		// @SuppressWarnings("deprecation")
@@ -120,7 +132,7 @@ public class GuideView extends FrameLayout {
 		});
 	}
 
-	private ArrayList<ImageView> mImageViews = new ArrayList<ImageView>();;// 装载所有小圆点的容器
+	private ArrayList<ImageView> mImageViews = new ArrayList<ImageView>();// 装载所有小圆点的容器
 
 	private class GuidPagerAdapter extends PagerAdapter {
 		@Override
@@ -165,7 +177,7 @@ public class GuideView extends FrameLayout {
 						LayoutParams.WRAP_CONTENT);
 				if (i != 0) {
 					// 从第二个点开始设置左边距
-					params.leftMargin = (int) DensityUtil.dip2px(getContext(), 10);
+					params.leftMargin = (int) DensityUtil.dip2px(getContext(), leftMargin);
 				}
 				point.setLayoutParams(params);
 				mLLayout.addView(point);
