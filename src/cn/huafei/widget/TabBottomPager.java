@@ -16,7 +16,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.huafei.androidutils.R;
-
+/**
+ * 底部页签控件
+ * @author lhfei
+ * @date 2016-10-14
+ */
 public class TabBottomPager extends FrameLayout {
 
 	private ViewPager mViewPager;
@@ -76,7 +80,7 @@ public class TabBottomPager extends FrameLayout {
 	 * 设置页签数据信息
 	 * @param tabInfos
 	 */
-	public void setTabs(ArrayList<TabInfo> tabInfos) {
+	public void setData(ArrayList<TabInfo> tabInfos) {
 		this.mTabInfos = tabInfos;
 		// 1.初始化底部Tab
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
