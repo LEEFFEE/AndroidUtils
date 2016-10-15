@@ -73,7 +73,20 @@
                 mCarouselBar.setData(data);
                 mCarouselBar.run();
 
+#### 4. 轮播条  TabIndicator；
+![enter description here][4]
+
+      ViewPager mViewPager = (ViewPager) findViewById(R.id.mViewPager);
+          // mViewPager.setAdapter(new MyPagerAdapter());
+          mViewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager()));
+
+          mTabIndicator = (TabIndicator) findViewById(R.id.mTabIndicator);
+          mTabIndicator.setTabBackgroundResId(R.drawable.bg_tab_text);// 设置tab背景选择器
+          mTabIndicator.setTabTextColorResId(R.color.tab_text_color);// 设置文字颜色选择器
+          mTabIndicator.setViewPager(mViewPager);// 设置ViewPager
+
 
   [1]: ./images/Screenshot_1476463793.png "Screenshot_1476463793.png"
   [2]: ./images/Screenshot_1476449972.png "Screenshot_1476449972.png"
   [3]: ./images/Screenshot_1476463203.png "Screenshot_1476463203.png"
+  [4]: ./images/20161015185133.png "20161015185133.png"
