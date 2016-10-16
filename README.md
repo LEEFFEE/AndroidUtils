@@ -73,7 +73,7 @@
                 mCarouselBar.setData(data);
                 mCarouselBar.run();
 
-#### 4. 轮播条  TabIndicator；
+#### 4. 底部页签 TabIndicator；
 ![enter description here][4]
 
       ViewPager mViewPager = (ViewPager) findViewById(R.id.mViewPager);
@@ -90,3 +90,22 @@
   [2]: ./images/Screenshot_1476449972.png "Screenshot_1476449972.png"
   [3]: ./images/Screenshot_1476463203.png "Screenshot_1476463203.png"
   [4]: ./images/20161015185133.png "20161015185133.png"
+  
+#### 5. 底部页签 BottomTabHost；
+
+		mBottomTabHost = (BottomTabHost) findViewById(R.id.bottomTabHost);
+		
+		ArrayList<TabHostBean> tabBeans = new ArrayList<TabHostBean>();
+		int txtColorId = R.color.selector_content_txt_color;
+		tabBeans.add(new TabHostBean("首页", true, R.drawable.selector_content_rb_bg_home, txtColorId,
+				BlankFragment.class));
+		tabBeans.add(new TabHostBean("新闻", false, R.drawable.selector_content_rb_bg_news, txtColorId,
+				BlankFragment.class));
+		tabBeans.add(new TabHostBean("服务", false, R.drawable.selector_content_rb_bg_service, txtColorId,
+				BlankFragment.class));
+		tabBeans.add(new TabHostBean("政务", false, R.drawable.selector_content_rb_bg_govaffairs, txtColorId,
+				BlankFragment.class));
+		tabBeans.add(new TabHostBean("设置", false, R.drawable.selector_content_rb_bg_setting, txtColorId,
+				BlankFragment.class));
+
+		mBottomTabHost.setData(tabBeans,getSupportFragmentManager(),R.id.fl_tabcontent);
