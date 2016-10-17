@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -36,20 +37,47 @@ public class GuideView extends FrameLayout {
 	private int curPointBGId;// 滚动圆点的背景
 	private float leftMargin = 10; // 除了第一个小圆点外 其他圆点的leftMargin
 
+	private Drawable normalPointsBGDrawable;
+	private Drawable curPointBGDrawable;
+
+	/**
+	 * 设置正常点的背景Drawable
+	 * @param normalPointsBGDrawable
+	 */
+	public void setNormalPointsBGDrawable(Drawable normalPointsBGDrawable) {
+		this.normalPointsBGDrawable = normalPointsBGDrawable;
+	}
+
+	/**
+	 * 设置滚动点的背景Drawable
+	 * @param curPointBGDrawable
+	 */
+	public void setCurPointBGDrawable(Drawable curPointBGDrawable) {
+		this.curPointBGDrawable = curPointBGDrawable;
+	}
+
+	/**
+	 * 设置正常点的背景ID
+	 * @param normalPointsBGId
+	 */
+	public void setNormalPointsBGId(int normalPointsBGId) {
+		this.normalPointsBGId = normalPointsBGId;
+	}
+
+	/**
+	 * 设置滚动点的背景Id
+	 * @param curPointBGId
+	 */
+	public void setCurPointBGId(int curPointBGId) {
+		this.curPointBGId = curPointBGId;
+	}
+
 	/**
 	 * 除了第一个小圆点外 其他圆点的leftMargin
 	 * @param leftMargin   像数自动转为密度
 	 */
 	public void setLeftMargin(float leftMargin) {
 		this.leftMargin = leftMargin;
-	}
-
-	public void setNormalPointsBGId(int normalPointsBGId) {
-		this.normalPointsBGId = normalPointsBGId;
-	}
-
-	public void setCurPointBGId(int curPointBGId) {
-		this.curPointBGId = curPointBGId;
 	}
 
 	public Button getBtnStart() {
@@ -161,7 +189,6 @@ public class GuideView extends FrameLayout {
 	}
 
 	private void initData() {
-		mCurPoint.setBackgroundResource(curPointBGId);
 		if (images != null) {
 			ImageView point;
 			for (int i = 0; i < images.size(); i++) {
@@ -171,7 +198,11 @@ public class GuideView extends FrameLayout {
 				mImageViews.add(point);
 				// 将灰色小圆点放入线性布局中
 				point = new ImageView(getContext());
-				point.setImageResource(normalPointsBGId);
+				if (normalPointsBGDrawable == null) {
+					point.setImageResource(normalPointsBGId);
+				} else {
+					point.setImageDrawable(normalPointsBGDrawable);
+				}
 				// 初始化布局参数, 宽高包裹内容,父控件是谁,就是谁声明的布局参数
 				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
 						LayoutParams.WRAP_CONTENT);
@@ -182,6 +213,11 @@ public class GuideView extends FrameLayout {
 				point.setLayoutParams(params);
 				mLLayout.addView(point);
 			}
+		}
+		if (curPointBGDrawable == null) {
+			mCurPoint.setBackgroundResource(curPointBGId);
+		} else {
+			mCurPoint.setBackgroundDrawable(curPointBGDrawable);
 		}
 
 	}
